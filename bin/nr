@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+'use strict';
+
+/**
+ * Module dependencies.
+ */
+
+const nr = require('../');
+const put = console.log.bind(console);
+
+// Initialize NRSession
+let session = null;
+(session = nr.createSession())
+.on('require', m => put("Requiring `%s'", m))
+.on('install', m => put("Installing `%s'", m))
+.on('installed', _ => put("Installed %d module%s",
+                          session.installed.length,
+                          session.installed.length > 1 ? 's' : ''))
+.on('error', err => { throw err; })
+.require(process.argv.slice(2))
+.install()
+.start();

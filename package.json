@@ -1,0 +1,26 @@
+{
+  "name": "nr",
+  "version": "0.0.1",
+  "description": "Fetch npm modules and jump into a repl",
+  "main": "lib/index.js",
+  "preferGlobal": true,
+  "bin": {
+    "nr": "bin/nr"
+  },
+  "scripts": {
+    "compile": "babel -d lib/ src/",
+    "prepublish": "npm run compile"
+  },
+  "keywords": [
+    "npm",
+    "repl"
+  ],
+  "author": "Joseph Werle <werle@littlstar.com>",
+  "license": "MIT",
+  "dependencies": {
+    "babel-core": "^5.8.25",
+    "batch": "^0.5.3",
+    "mkdirp": "^0.5.1",
+    "npm": "^3.3.6"
+  }
+}
