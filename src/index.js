@@ -5,6 +5,7 @@
  */
 
 import {REPLServer, REPL_MODE_STRICT} from 'repl';
+import {writeFileSync as write} from 'fs';
 import EventEmitter from 'events';
 import mkdir from 'mkdirp';
 import Batch from 'batch';
@@ -126,6 +127,7 @@ const handleTransform = (code, context, file, cb) => {
 const DUMMY_CONFIG_OBJECT = {
   name: "nr-dummy",
   version: "0.0.0",
+  private: true,
   description: "",
   main: "index.js",
   scripts: {test: ":"},
@@ -235,7 +237,7 @@ export class NRSession extends EventEmitter {
      */
 
     this.options = {
-      replMode: REPL_MODE_STRICT,
+      //replMode: REPL_MODE_STRICT,
       prompt: opts.prompt || DEFAULT_PROMPT,
       output: opts.stdout || process.stdout,
       input: opts.stdin || process.stdin,
@@ -253,6 +255,10 @@ export class NRSession extends EventEmitter {
 
     // ensure sandbox directory exists
     mkdir(NR_SANDBOX_DIR);
+    try {
+      write(`${NR_SANDBOX_DIR}/package.json`,
+            JSON.stringify(DUMMY_CONFIG_OBJECT));
+    } catch (e) {}
   }
 
   /**
@@ -311,8 +317,6 @@ export class NRSession extends EventEmitter {
             catch (e) {}
           }
         };
-
-        scope.require(module);
       });
     };
 

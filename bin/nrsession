@@ -12,7 +12,6 @@ const put = console.log.bind(console);
 let session = null;
 (session = nr.createSession())
 .on('require', m => put("Requiring `%s'", m))
-.on('install', m => put("Installing `%s'", m))
 .on('installed', _ => put("Installed %d module%s",
                           session.installed.length,
                           session.installed.length > 1 ? 's' : ''))
