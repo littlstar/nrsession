@@ -16,9 +16,16 @@ $ nrsession [...modules]
 
 ## example
 
+Start a session with `batch` and `superagent` as a NPM dependency.
+
 ```sh
 $ nrsession batch superagent
-...
+```
+
+After bootstrapping you will be put into a session where those modules
+are available to be loaded.
+
+```js
 nr> const Batch = require('batch');
 nr> const agent = require('superagent');
 nr> const tasks = new Batch();
